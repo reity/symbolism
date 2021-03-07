@@ -609,4 +609,4 @@ def _is_(x, y):
 is_ = symbol(_is_)
 
 if __name__ == "__main__":
-    doctest.testmod()
+    doctest.testmod() # pragma: no cover
