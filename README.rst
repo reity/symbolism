@@ -4,7 +4,7 @@ symbolism
 
 Extensible combinator library for building symbolic Python expressions that are compatible with serialization and can be evaluated at a later time.
 
-|pypi| |travis|
+|pypi| |travis| |coveralls|
 
 .. |pypi| image:: https://badge.fury.io/py/symbolism.svg
    :target: https://badge.fury.io/py/symbolism
@@ -12,6 +12,9 @@ Extensible combinator library for building symbolic Python expressions that are 
 
 .. |travis| image:: https://travis-ci.com/reity/symbolism.svg?branch=master
    :target: https://travis-ci.com/reity/symbolism
+
+.. |coveralls| image:: https://coveralls.io/repos/github/reity/symbolism/badge.svg?branch=master
+   :target: https://coveralls.io/github/reity/symbolism?branch=master
 
 Purpose
 -------
