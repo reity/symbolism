@@ -7,7 +7,7 @@ setup(
     name="symbolism",
     version="0.1.0",
     packages=["symbolism",],
-    install_requires=[,],
+    install_requires=[],
     license="MIT",
     url="https://github.com/reity/symbolism",
     author="Andrei Lapets",
