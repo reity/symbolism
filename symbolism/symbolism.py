@@ -12,7 +12,7 @@ class symbol:
     Class for symbol data structure; symbolic expressions are
     trees consisting of nested symbols.
     """
-    def __init__(self, instance):
+    def __init__(self: symbol, instance):
         """
         Create a symbol from an instance (e.g., value, object, or function).
 
@@ -24,7 +24,7 @@ class symbol:
         self.instance = instance
         self.parameters = None
 
-    def __call__(self, *parameters):
+    def __call__(self: symbol, *parameters)  -> symbol:
         """
         Create a symbolic expression by applying a symbol
         to parameter expressions.
@@ -43,7 +43,7 @@ class symbol:
         s.parameters = parameters
         return s
 
-    def __getitem__(self, key):
+    def __getitem__(self: symbol, key):
         """
         Allow retrieval of parameters.
 
@@ -57,7 +57,7 @@ class symbol:
         """
         return self.parameters[key]
 
-    def __iter__(self):
+    def __iter__(self: symbol):
         """
         Allow iteration over parameters.
 
@@ -72,7 +72,7 @@ class symbol:
         for parameter in self.parameters:
             yield parameter
 
-    def __len__(self):
+    def __len__(self: symbol) -> int:
         """
         The length of a symbol instance corresponds to
         the number of parameters it has.
@@ -86,7 +86,7 @@ class symbol:
         """
         return len(self.parameters) if self.parameters is not None else 0
 
-    def evaluate(self):
+    def evaluate(self: symbol):
         """
         >>> add = lambda x, y: x + y
         >>> e = symbol(add)(symbol(1), symbol(2))
@@ -101,7 +101,7 @@ class symbol:
 
         return self.instance(*[p.evaluate() for p in self.parameters])
 
-    def __add__(self, other):
+    def __add__(self: symbol, other: symbol) -> symbol:
         """
         >>> e = symbol(2) + symbol(3)
         >>> isinstance(e, symbol)
@@ -111,7 +111,7 @@ class symbol:
         """
         return add_(self, other)
 
-    def __sub__(self, other):
+    def __sub__(self: symbol, other: symbol) -> symbol:
         """
         >>> e = symbol(2) - symbol(3)
         >>> isinstance(e, symbol)
@@ -121,7 +121,7 @@ class symbol:
         """
         return sub_(self, other)
 
-    def __mul__(self, other):
+    def __mul__(self: symbol, other: symbol) -> symbol:
         """
         >>> e = symbol(2) * symbol(3)
         >>> isinstance(e, symbol)
@@ -132,7 +132,7 @@ class symbol:
         return mul_(self, other)
 
 
-    def __matmul__(self, other):
+    def __matmul__(self: symbol, other: symbol) -> symbol:
         """
         >>> class Test:
         ...     def __matmul__(self, other):
@@ -145,7 +145,7 @@ class symbol:
         """
         return matmul_(self, other)
 
-    def __truediv__(self, other):
+    def __truediv__(self: symbol, other: symbol) -> symbol:
         """
         >>> e = symbol(5) / symbol(2)
         >>> isinstance(e, symbol)
@@ -155,7 +155,7 @@ class symbol:
         """
         return div_(self, other)
 
-    def __floordiv__(self, other):
+    def __floordiv__(self: symbol, other: symbol) -> symbol:
         """
         >>> e = symbol(5) // symbol(2)
         >>> isinstance(e, symbol)
@@ -165,7 +165,7 @@ class symbol:
         """
         return floordiv_(self, other)
 
-    def __mod__(self, other):
+    def __mod__(self: symbol, other: symbol) -> symbol:
         """
         >>> e = symbol(5) % symbol(2)
         >>> isinstance(e, symbol)
@@ -175,7 +175,7 @@ class symbol:
         """
         return mod_(self, other)
 
-    def __pow__(self, other):
+    def __pow__(self: symbol, other: symbol) -> symbol:
         """
         >>> e = symbol(5) ** symbol(2)
         >>> isinstance(e, symbol)
@@ -185,7 +185,7 @@ class symbol:
         """
         return pow_(self, other)
 
-    def __lshift__(self, other):
+    def __lshift__(self: symbol, other: symbol) -> symbol:
         """
         >>> e = symbol(4) << symbol(2)
         >>> isinstance(e, symbol)
@@ -195,7 +195,7 @@ class symbol:
         """
         return lshift_(self, other)
 
-    def __rshift__(self, other):
+    def __rshift__(self: symbol, other: symbol) -> symbol:
         """
         >>> e = symbol(16) >> symbol(2)
         >>> isinstance(e, symbol)
@@ -205,7 +205,7 @@ class symbol:
         """
         return rshift_(self, other)
 
-    def __and__(self, other):
+    def __and__(self: symbol, other: symbol) -> symbol:
         """
         >>> e = symbol({1, 2}) & symbol({2, 3})
         >>> isinstance(e, symbol)
@@ -215,7 +215,7 @@ class symbol:
         """
         return bitand_(self, other)
 
-    def __xor__(self, other):
+    def __xor__(self: symbol, other: symbol) -> symbol:
         """
         >>> e = symbol({1, 2}) ^ symbol({2, 3})
         >>> isinstance(e, symbol)
@@ -225,7 +225,7 @@ class symbol:
         """
         return bitxor_(self, other)
 
-    def __or__(self, other):
+    def __or__(self: symbol, other: symbol) -> symbol:
         """
         >>> e = symbol({1, 2}) | symbol({2, 3})
         >>> isinstance(e, symbol)
@@ -235,7 +235,7 @@ class symbol:
         """
         return bitor_(self, other)
 
-    def __neg__(self):
+    def __neg__(self: symbol) -> symbol:
         """
         >>> e = -symbol(2)
         >>> isinstance(e, symbol)
@@ -245,7 +245,7 @@ class symbol:
         """
         return neg_(self)
 
-    def __pos__(self):
+    def __pos__(self: symbol) -> symbol:
         """
         >>> e = +symbol(2)
         >>> isinstance(e, symbol)
@@ -255,7 +255,7 @@ class symbol:
         """
         return pos_(self)
 
-    def __invert__(self):
+    def __invert__(self: symbol) -> symbol:
         """
         >>> e = ~symbol(2)
         >>> isinstance(e, symbol)
@@ -265,7 +265,7 @@ class symbol:
         """
         return invert_(self)
 
-    def __eq__(self, other):
+    def __eq__(self: symbol, other: symbol) -> symbol:
         """
         >>> e = symbol(2) == symbol(3)
         >>> isinstance(e, symbol)
@@ -275,7 +275,7 @@ class symbol:
         """
         return eq_(self, other)
 
-    def __ne__(self, other):
+    def __ne__(self: symbol, other: symbol) -> symbol:
         """
         >>> e = symbol(2) != symbol(3)
         >>> isinstance(e, symbol)
@@ -285,7 +285,7 @@ class symbol:
         """
         return ne_(self, other)
 
-    def __lt__(self, other):
+    def __lt__(self: symbol, other: symbol) -> symbol:
         """
         >>> e = symbol(2) < symbol(3)
         >>> isinstance(e, symbol)
@@ -295,7 +295,7 @@ class symbol:
         """
         return lt_(self, other)
 
-    def __le__(self, other):
+    def __le__(self: symbol, other: symbol) -> symbol:
         """
         >>> e = symbol(2) <= symbol(3)
         >>> isinstance(e, symbol)
@@ -305,7 +305,7 @@ class symbol:
         """
         return le_(self, other)
 
-    def __gt__(self, other):
+    def __gt__(self: symbol, other: symbol) -> symbol:
         """
         >>> e = symbol(2) > symbol(3)
         >>> isinstance(e, symbol)
@@ -315,7 +315,7 @@ class symbol:
         """
         return gt_(self, other)
 
-    def __ge__(self, other):
+    def __ge__(self: symbol, other: symbol) -> symbol:
         """
         >>> e = symbol(2) >= symbol(3)
         >>> isinstance(e, symbol)
@@ -329,7 +329,7 @@ class symbol:
 # coverage of unit tests, the @symbol decorator is not
 # used in the definitions below.
 
-def _and_(x, y):
+def _and_(x: symbol, y: symbol) -> symbol:
     """
     >>> isinstance(and_(symbol(False), symbol(True)), symbol)
     True
@@ -339,7 +339,7 @@ def _and_(x, y):
     return x and y
 and_ = symbol(_and_)
 
-def _or_(x, y):
+def _or_(x: symbol, y: symbol) -> symbol:
     """
     >>> isinstance(or_(symbol(False), symbol(True)), symbol)
     True
@@ -349,7 +349,7 @@ def _or_(x, y):
     return x or y
 or_ = symbol(_or_)
 
-def _add_(x, y):
+def _add_(x: symbol, y: symbol) -> symbol:
     """
     >>> isinstance(add_(symbol(2), symbol(3)), symbol)
     True
@@ -359,7 +359,7 @@ def _add_(x, y):
     return x + y
 add_ = symbol(_add_)
 
-def _sub_(x, y):
+def _sub_(x: symbol, y: symbol) -> symbol:
     """
     >>> isinstance(sub_(symbol(2), symbol(3)), symbol)
     True
@@ -369,7 +369,7 @@ def _sub_(x, y):
     return x - y
 sub_ = symbol(_sub_)
 
-def _mul_(x, y):
+def _mul_(x: symbol, y: symbol) -> symbol:
     """
     >>> isinstance(mul_(symbol(2), symbol(3)), symbol)
     True
@@ -379,7 +379,7 @@ def _mul_(x, y):
     return x * y
 mul_ = symbol(_mul_)
 
-def _matmul_(x, y):
+def _matmul_(x: symbol, y: symbol) -> symbol:
     """
     >>> class Test:
     ...     def __matmul__(self, other):
@@ -392,7 +392,7 @@ def _matmul_(x, y):
     return x @ y
 matmul_ = symbol(_matmul_)
 
-def _div_(x, y):
+def _div_(x: symbol, y: symbol) -> symbol:
     """
     >>> isinstance(div_(symbol(5), symbol(2)), symbol)
     True
@@ -403,7 +403,7 @@ def _div_(x, y):
 div_ = symbol(_div_)
 truediv_ = div_ # Synonym based on method names in Python data model.
 
-def _floordiv_(x, y):
+def _floordiv_(x: symbol, y: symbol) -> symbol:
     """
     >>> isinstance(floordiv_(symbol(5), symbol(2)), symbol)
     True
@@ -413,7 +413,7 @@ def _floordiv_(x, y):
     return x // y
 floordiv_ = symbol(_floordiv_)
 
-def _mod_(x, y):
+def _mod_(x: symbol, y: symbol) -> symbol:
     """
     >>> isinstance(mod_(symbol(5), symbol(2)), symbol)
     True
@@ -423,7 +423,7 @@ def _mod_(x, y):
     return x % y
 mod_ = symbol(_mod_)
 
-def _pow_(x, y):
+def _pow_(x: symbol, y: symbol) -> symbol:
     """
     >>> isinstance(pow_(symbol(2), symbol(3)), symbol)
     True
@@ -433,7 +433,7 @@ def _pow_(x, y):
     return x ** y
 pow_ = symbol(_pow_)
 
-def _lshift_(x, y):
+def _lshift_(x: symbol, y: symbol) -> symbol:
     """
     >>> isinstance(lshift_(symbol(4), symbol(2)), symbol)
     True
@@ -443,7 +443,7 @@ def _lshift_(x, y):
     return x << y
 lshift_ = symbol(_lshift_)
 
-def _rshift_(x, y):
+def _rshift_(x: symbol, y: symbol) -> symbol:
     """
     >>> isinstance(rshift_(symbol(16), symbol(2)), symbol)
     True
@@ -453,7 +453,7 @@ def _rshift_(x, y):
     return x >> y
 rshift_ = symbol(_rshift_)
 
-def _bitand_(x, y):
+def _bitand_(x: symbol, y: symbol) -> symbol:
     """
     >>> isinstance(bitand_(symbol({1, 2}), symbol({2, 3})), symbol)
     True
@@ -464,7 +464,7 @@ def _bitand_(x, y):
 bitand_ = symbol(_bitand_)
 amp_ = bitand_ # Concise synonym.
 
-def _bitxor_(x, y):
+def _bitxor_(x: symbol, y: symbol) -> symbol:
     """
     >>> isinstance(bitxor_(symbol({1, 2}), symbol({2, 3})), symbol)
     True
@@ -475,7 +475,7 @@ def _bitxor_(x, y):
 bitxor_ = symbol(_bitxor_)
 xor_ = bitxor_ # Concise synonym
 
-def _bitor_(x, y):
+def _bitor_(x: symbol, y: symbol) -> symbol:
     """
     >>> isinstance(bitor_(symbol({1, 2}), symbol({2, 3})), symbol)
     True
@@ -486,7 +486,7 @@ def _bitor_(x, y):
 bitor_ = symbol(_bitor_)
 bar_ = bitor_ # Concise synonym.
 
-def _invert_(x):
+def _invert_(x: symbol) -> symbol:
     """
     >>> isinstance(invert_(symbol(2)), symbol)
     True
@@ -496,7 +496,7 @@ def _invert_(x):
     return ~x
 invert_ = symbol(_invert_)
 
-def _not_(x):
+def _not_(x: symbol) -> symbol:
     """
     >>> isinstance(not_(symbol(True)), symbol)
     True
@@ -506,7 +506,7 @@ def _not_(x):
     return not x
 not_ = symbol(_not_)
 
-def _pos_(x):
+def _pos_(x: symbol) -> symbol:
     """
     >>> isinstance(pos_(symbol(3)), symbol)
     True
@@ -517,7 +517,7 @@ def _pos_(x):
 pos_ = symbol(_pos_)
 uadd_ = pos_ # Synonym based on AST module names.
 
-def _neg_(x):
+def _neg_(x: symbol) -> symbol:
     """
     >>> isinstance(neg_(symbol(3)), symbol)
     True
@@ -528,7 +528,7 @@ def _neg_(x):
 neg_ = symbol(_neg_)
 usub_ = neg_ # Synonym based on AST module names.
 
-def _eq_(x, y):
+def _eq_(x: symbol, y: symbol) -> symbol:
     """
     >>> isinstance(eq_(symbol(3), symbol(2)), symbol)
     True
@@ -538,7 +538,7 @@ def _eq_(x, y):
     return x == y
 eq_ = symbol(_eq_)
 
-def _ne_(x, y):
+def _ne_(x: symbol, y: symbol) -> symbol:
     """
     >>> isinstance(ne_(symbol(3), symbol(2)), symbol)
     True
@@ -548,7 +548,7 @@ def _ne_(x, y):
     return x != y
 ne_ = symbol(_ne_)
 
-def _lt_(x, y):
+def _lt_(x: symbol, y: symbol) -> symbol:
     """
     >>> isinstance(lt_(symbol(3), symbol(2)), symbol)
     True
@@ -558,7 +558,7 @@ def _lt_(x, y):
     return x < y
 lt_ = symbol(_lt_)
 
-def _le_(x, y):
+def _le_(x: symbol, y: symbol) -> symbol:
     """
     >>> isinstance(le_(symbol(3), symbol(2)), symbol)
     True
@@ -568,7 +568,7 @@ def _le_(x, y):
     return x <= y
 le_ = symbol(_le_)
 
-def _gt_(x, y):
+def _gt_(x: symbol, y: symbol) -> symbol:
     """
     >>> isinstance(gt_(symbol(3), symbol(2)), symbol)
     True
@@ -578,7 +578,7 @@ def _gt_(x, y):
     return x > y
 gt_ = symbol(_gt_)
 
-def _ge_(x, y):
+def _ge_(x: symbol, y: symbol) -> symbol:
     """
     >>> isinstance(ge_(symbol(3), symbol(2)), symbol)
     True
@@ -588,7 +588,7 @@ def _ge_(x, y):
     return x >= y
 ge_ = symbol(_ge_)
 
-def _in_(x, y):
+def _in_(x: symbol, y: symbol) -> symbol:
     """
     >>> isinstance(in_(symbol(2), symbol({1, 2, 3})), symbol)
     True
@@ -598,7 +598,7 @@ def _in_(x, y):
     return x in y
 in_ = symbol(_in_)
 
-def _is_(x, y):
+def _is_(x: symbol, y: symbol) -> symbol:
     """
     >>> isinstance(is_(symbol(2), symbol(2)), symbol)
     True
