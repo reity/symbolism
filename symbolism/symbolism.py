@@ -69,7 +69,7 @@ class symbol:
 
     def __getitem__(self: symbol, key):
         """
-        Retrieve an instance parameter using its key.
+        Retrieve an instance parameter using its index or key.
 
         >>> add = lambda x, y: x + y
         >>> add_ = symbol(add)
@@ -77,6 +77,12 @@ class symbol:
         >>> (e[0].instance, e[1].instance)
         (1, 2)
         >>> [e[i].instance for (i, p) in enumerate(e.parameters)]
+        [1, 2]
+
+        Slice notation is also supported when the ``parameters``
+        attribute supports it.
+
+        >>> [s.instance for s in e[0:2]]
         [1, 2]
         """
         return self.parameters[key]
