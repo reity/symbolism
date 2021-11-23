@@ -10,11 +10,13 @@ Extensible combinator library for building symbolic Python expressions that are 
    :target: https://badge.fury.io/py/symbolism
    :alt: PyPI version and link.
 
-.. |travis| image:: https://travis-ci.com/reity/symbolism.svg?branch=master
-   :target: https://travis-ci.com/reity/symbolism
+.. |travis| image:: https://app.travis-ci.com/reity/symbolism.svg?branch=master
+   :target: https://app.travis-ci.com/reity/symbolism
+   :alt: Travis CI build status.
 
 .. |coveralls| image:: https://coveralls.io/repos/github/reity/symbolism/badge.svg?branch=master
    :target: https://coveralls.io/github/reity/symbolism?branch=master
+   :alt: Coveralls test coverage summary.
 
 Purpose
 -------
@@ -22,7 +24,7 @@ In many scenarios that require some form of lazy evaluation, it is sufficient to
 
 Package Installation and Usage
 ------------------------------
-The package is available on PyPI::
+The package is available on `PyPI <https://pypi.org/project/symbolism/>`_::
 
     python -m pip install symbolism
 
@@ -43,8 +45,9 @@ The documentation can be generated automatically from the source files using `Sp
 
 Testing and Conventions
 -----------------------
-All unit tests are executed and their coverage is measured when using `nose <https://nose.readthedocs.io/>`_ (see ``setup.cfg`` for configution details)::
+All unit tests are executed and their coverage is measured when using `nose <https://nose.readthedocs.io/>`_ (see ``setup.cfg`` for configuration details)::
 
+    python -m pip install nose coverage
     nosetests
 
 Alternatively, all unit tests are included in the module itself and can be executed using `doctest <https://docs.python.org/3/library/doctest.html>`_::
@@ -53,11 +56,12 @@ Alternatively, all unit tests are included in the module itself and can be execu
 
 Style conventions are enforced using `Pylint <https://www.pylint.org/>`_::
 
+    python -m pip install pylint
     pylint symbolism
 
 Contributions
 -------------
-In order to contribute to the source code, open an issue or submit a pull request on the GitHub page for this library.
+In order to contribute to the source code, open an issue or submit a pull request on the `GitHub page <https://github.com/reity/symbolism>`_ for this library.
 
 Versioning
 ----------
