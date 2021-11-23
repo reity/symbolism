@@ -4,11 +4,15 @@ symbolism
 
 Extensible combinator library for building symbolic Python expressions that are compatible with serialization and can be evaluated at a later time.
 
-|pypi| |travis| |coveralls|
+|pypi| |readthedocs| |travis| |coveralls|
 
 .. |pypi| image:: https://badge.fury.io/py/symbolism.svg
    :target: https://badge.fury.io/py/symbolism
    :alt: PyPI version and link.
+
+.. |readthedocs| image:: https://readthedocs.org/projects/symbolism/badge/?version=latest
+   :target: https://symbolism.readthedocs.io/en/latest/?badge=latest
+   :alt: Read the Docs documentation status.
 
 .. |travis| image:: https://app.travis-ci.com/reity/symbolism.svg?branch=master
    :target: https://app.travis-ci.com/reity/symbolism
