@@ -277,7 +277,7 @@ class symbol:
 
     def __ne__(self, other):
         """
-         >>> e = symbol(2) != symbol(3)
+        >>> e = symbol(2) != symbol(3)
         >>> isinstance(e, symbol)
         True
         >>> e.evaluate()

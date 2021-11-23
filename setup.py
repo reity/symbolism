@@ -3,10 +3,14 @@ from setuptools import setup
 with open("README.rst", "r") as fh:
     long_description = fh.read()
 
+# The lines below can be parsed by `docs/conf.py`.
+name = "symbolism"
+version = "0.1.0"
+
 setup(
-    name="symbolism",
-    version="0.1.0",
-    packages=["symbolism",],
+    name=name,
+    version=version,
+    packages=[name,],
     install_requires=[],
     license="MIT",
     url="https://github.com/reity/symbolism",
