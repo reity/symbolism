@@ -37,6 +37,31 @@ The library can be imported in the usual ways::
     import symbolism
     from symbolism import *
 
+Examples
+^^^^^^^^
+The library makes it possible to construct symbolic Python expressions (as instances of the ``symbol`` class) that can be evaluated at a later time. A symbolic expression involving addition of integers is created in the example below::
+
+    >>> from symbolism import *
+    >>> addition = symbol(lambda x, y: x + y)
+    >>> summation = addition(symbol(1), symbol(2))
+
+The expression above can be evaluated at a later time::
+
+    >>> summation.evaluate()
+    3
+
+Symbol instances are compatible with all built-in infix and prefix operators. When an operator is applied to one or more ``symbol`` instances, a new ``symbol`` instance is created::
+
+    >>> summation = symbol(1) + symbol(2)
+    >>> summation.evaluate()
+    3
+
+Pre-defined constants are also provided for all built-in operators::
+
+    >>> conjunction = and_(symbol(True), symbol(False))
+    >>> conjunction.evaluate()
+    False
+
 Documentation
 -------------
 .. include:: toc.rst

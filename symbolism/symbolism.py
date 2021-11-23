@@ -1,20 +1,44 @@
-"""Library for building symbolic expressions.
-
-Extensible combinator library for building symbolic
-expressions that can be evaluated at a later time.
 """
-
+Extensible combinator library for building symbolic expressions that
+can be evaluated at a later time.
+"""
 from __future__ import annotations
 import doctest
 
 class symbol:
     """
-    Class for symbol data structure; symbolic expressions are
-    trees consisting of nested symbols.
+    Instances of this class represent individual symbolic values, as well as
+    entire symbolic expressions (*i.e.*, trees consisting of nested :obj:`symbol`
+    instances are represented using the root instance). A symbolic expression
+    involving addition of integers is created in the example below.
+
+    >>> from symbolism import *
+    >>> addition = symbol(lambda x, y: x + y)
+    >>> summation = addition(symbol(1), symbol(2))
+
+    The expression above can be evaluated at a later time.
+
+    >>> summation.evaluate()
+    3
+
+    Instances are compatible with all built-in infix and prefix operators.
+    When an operator is applied to one or more instances, a new :obj:`symbol`
+    instance is created.
+
+    >>> summation = symbol(1) + symbol(2)
+    >>> summation.evaluate()
+    3
+
+    Pre-defined constants are also provided for all built-in operators.
+
+    >>> conjunction = and_(symbol(True), symbol(False))
+    >>> conjunction.evaluate()
+    False
     """
     def __init__(self: symbol, instance):
         """
-        Create a symbol from an instance (e.g., value, object, or function).
+        Create a symbol from an instance (*e.g.*, value, object, or
+        function).
 
         >>> add = lambda x, y: x + y
         >>> add_ = symbol(add)
@@ -26,8 +50,8 @@ class symbol:
 
     def __call__(self: symbol, *parameters)  -> symbol:
         """
-        Create a symbolic expression by applying a symbol
-        to parameter expressions.
+        Allow creation of a symbolic expression via application of a
+        :obj:`symbol` instance to zero or more parameter expressions.
 
         >>> add = lambda x, y: x + y
         >>> add_ = symbol(add)
@@ -45,7 +69,7 @@ class symbol:
 
     def __getitem__(self: symbol, key):
         """
-        Allow retrieval of parameters.
+        Retrieve an instance parameter using its key.
 
         >>> add = lambda x, y: x + y
         >>> add_ = symbol(add)
@@ -59,7 +83,7 @@ class symbol:
 
     def __iter__(self: symbol):
         """
-        Allow iteration over parameters.
+        Allow iteration over instance parameters.
 
         >>> add = lambda x, y: x + y
         >>> add_ = symbol(add)
@@ -74,8 +98,8 @@ class symbol:
 
     def __len__(self: symbol) -> int:
         """
-        The length of a symbol instance corresponds to
-        the number of parameters it has.
+        The length of an instance corresponds to the number of parameters it
+        has.
 
         >>> add = lambda x, y: x + y
         >>> len(symbol(add))
@@ -88,6 +112,9 @@ class symbol:
 
     def evaluate(self: symbol):
         """
+        Evaluate a symbolic expression (via recursive evaluation of all
+        subexpressions) and return the result.
+
         >>> add = lambda x, y: x + y
         >>> e = symbol(add)(symbol(1), symbol(2))
         >>> e.evaluate()

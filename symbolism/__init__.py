@@ -1,4 +1,4 @@
-"""Allow users to use classes directly."""
+"""Gives users direct access to class and functions."""
 from symbolism.symbolism import\
     symbol,\
     and_, or_,\
