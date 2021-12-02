@@ -5,7 +5,7 @@ with open("README.rst", "r") as fh:
 
 # The lines below can be parsed by `docs/conf.py`.
 name = "symbolism"
-version = "0.2.1"
+version = "0.2.2"
 
 setup(
     name=name,
