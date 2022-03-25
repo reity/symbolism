@@ -64,7 +64,7 @@ class symbol:
         1
         """
         s = symbol(self.instance)
-        s.parameters = {i: v for i, v in enumerate(*args)} | kwargs
+        s.parameters = dict(enumerate(*args)) | kwargs
         return s
 
     def __getitem__(self: symbol, key):
