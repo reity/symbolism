@@ -48,7 +48,7 @@ class symbol:
         self.instance = instance
         self.parameters = None
 
-    def __call__(self: symbol, *args, **kwargs) -> symbol:
+    def __call__(self: symbol, *parameters)  -> symbol:
         """
         Allow creation of a symbolic expression via application of a
         :obj:`symbol` instance to zero or more parameter expressions.
@@ -64,7 +64,7 @@ class symbol:
         1
         """
         s = symbol(self.instance)
-        s.parameters = {i: v for i, v in enumerate(*args)} | kwargs
+        s.parameters = parameters
         return s
 
     def __getitem__(self: symbol, key):
