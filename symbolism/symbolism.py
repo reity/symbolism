@@ -62,9 +62,37 @@ class symbol:
         2
         >>> e.parameters[0].instance
         1
+
+        Keyword arguments are also supported. However, note that the keywords
+        are preserved only in the keys of the``parameters`` attribute (which in
+        this case is instantiated as a dictionary). The indexing method
+        :obj:`symbol.__getitem__` and the iteration method :obj:`symbol.__iter__`
+        only support positional integer indexing and (where applicable) slicing.
+
+        >>> add = lambda x, y: x + y
+        >>> add_ = symbol(add)
+        >>> e = add_(x=symbol(1), y=symbol(2))
+        >>> isinstance(e, symbol)
+        True
+        >>> len(e.parameters)
+        2
+        >>> e.parameters['x'].instance
+        1
+
+        Positional and keyword arguments cannot be mixed.
+
+        >>> add = lambda x, y: x + y
+        >>> add_ = symbol(add)
+        >>> e = add_(symbol(1), y=symbol(2))
+        Traceback (most recent call last):
+          ...
+        ValueError: cannot mix positional and keyword arguments
         """
+        if len(args) > 0 and len(kwargs) > 0:
+            raise ValueError('cannot mix positional and keyword arguments')
+
         s = symbol(self.instance)
-        s.parameters = dict(enumerate(*args)) | kwargs
+        s.parameters = args if len(kwargs) == 0 else kwargs
         return s
 
     def __getitem__(self: symbol, key):
@@ -78,6 +106,8 @@ class symbol:
         (1, 2)
         >>> [e[i].instance for (i, p) in enumerate(e.parameters)]
         [1, 2]
+        >>> [e[i].instance for (i, p) in enumerate(e)]
+        [1, 2]
 
         Slice notation is also supported when the ``parameters``
         attribute supports it.
@@ -85,7 +115,12 @@ class symbol:
         >>> [s.instance for s in e[0:2]]
         [1, 2]
         """
-        return self.parameters[key]
+        # pylint: disable=no-member # Disable false positive in below expression.
+        return (
+            list(self.parameters.values())[key] \
+            if isinstance(self.parameters, dict) else \
+            self.parameters[key]
+        )
 
     def __iter__(self: symbol):
         """
@@ -98,8 +133,25 @@ class symbol:
         [1, 2]
         >>> 123 in add_(123)
         True
+
+        Even if keyword arguments are used when this instance is instantiated,
+        the iteration returns the actual parameter instances (and **not** the
+        keys of the ``parameters`` attribute).
+
+        >>> add = lambda x, y: x + y
+        >>> add_ = symbol(add)
+        >>> e = add_(x=symbol(1), y=symbol(2))
+        >>> [p.instance for p in e]
+        [1, 2]
+        >>> 123 in add_(123)
+        True
         """
-        for parameter in self.parameters:
+        # pylint: disable=no-member # Disable false positive in below statement.
+        for parameter in (
+            self.parameters.values() \
+            if isinstance(self.parameters, dict) else \
+            self.parameters
+        ):
             yield parameter
 
     def __len__(self: symbol) -> int:
@@ -132,7 +184,15 @@ class symbol:
         if self.parameters is None:
             return self.instance
 
-        return self.instance(*[p.evaluate() for p in self.parameters])
+        # pylint: disable=no-member # Disable false positive in below expression.
+        return self.instance(*[
+            parameter.evaluate()
+            for parameter in ( # pylint: disable=no-member
+                self.parameters.values() \
+                if isinstance(self.parameters, dict) else \
+                self.parameters
+            )
+        ])
 
     def __add__(self: symbol, other: symbol) -> symbol:
         """
