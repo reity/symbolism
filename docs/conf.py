@@ -44,7 +44,9 @@ copyright = year + ', ' + re.sub(r"\.$", "", author) # Period already in HTML.
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.doctest',
-    'sphinx.ext.napoleon'
+    'sphinx.ext.napoleon',
+    'sphinx.ext.intersphinx',
+    'sphinx.ext.viewcode'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -68,6 +70,11 @@ autodoc_default_options = {
     ])
 }
 autodoc_preserve_defaults = True
+
+# Allow references/links to definitions found in the Python documentation.
+intersphinx_mapping = {
+    'python': ('https://docs.python.org/3', None)
+}
 
 
 # -- Options for HTML output -------------------------------------------------

@@ -3,6 +3,7 @@ Extensible combinator library for building symbolic expressions that
 can be evaluated at a later time.
 """
 from __future__ import annotations
+from typing import Any, Union, Iterable
 import doctest
 
 class symbol:
@@ -35,7 +36,7 @@ class symbol:
     >>> conjunction.evaluate()
     False
     """
-    def __init__(self: symbol, instance):
+    def __init__(self: symbol, instance: Any):
         """
         Create a symbol from an instance (*e.g.*, value, object, or
         function).
@@ -66,7 +67,7 @@ class symbol:
         Keyword arguments are also supported. However, note that the keywords
         are preserved only in the keys of the``parameters`` attribute (which in
         this case is instantiated as a dictionary). The indexing method
-        :obj:`symbol.__getitem__` and the iteration method :obj:`symbol.__iter__`
+        :obj:`~symbol.__getitem__` and the iteration method :obj:`~symbol.__iter__`
         only support positional integer indexing and (where applicable) slicing.
 
         >>> add = lambda x, y: x + y
@@ -95,9 +96,10 @@ class symbol:
         s.parameters = args if len(kwargs) == 0 else kwargs
         return s
 
-    def __getitem__(self: symbol, key):
+    def __getitem__(self: symbol, key: Union[int, slice]) -> Union[Any, list, tuple]:
         """
-        Retrieve an instance parameter using its index or key.
+        Retrieve an instance parameter using an integer index, or retrieve a
+        sequence of instance parameters using a slice.
 
         >>> add = lambda x, y: x + y
         >>> add_ = symbol(add)
@@ -119,10 +121,10 @@ class symbol:
         return (
             list(self.parameters.values())[key] \
             if isinstance(self.parameters, dict) else \
-            self.parameters[key]
+            self.parameters[key] # Should be a :obj:`tuple`; see :obj:`__init__`.
         )
 
-    def __iter__(self: symbol):
+    def __iter__(self: symbol) -> Iterable:
         """
         Allow iteration over instance parameters.
 
@@ -168,7 +170,7 @@ class symbol:
         """
         return len(self.parameters) if self.parameters is not None else 0
 
-    def evaluate(self: symbol):
+    def evaluate(self: symbol) -> Any:
         """
         Evaluate a symbolic expression (via recursive evaluation of all
         subexpressions) and return the result.

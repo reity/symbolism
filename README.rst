@@ -39,7 +39,11 @@ The library can be imported in the usual ways::
 
 Examples
 ^^^^^^^^
-The library makes it possible to construct symbolic Python expressions (as instances of the ``symbol`` class) that can be evaluated at a later time. A symbolic expression involving addition of integers is created in the example below::
+
+.. |symbol| replace:: ``symbol``
+.. _symbol: https://symbolism.readthedocs.io/en/latest/_source/symbolism.html#symbolism.symbolism.symbol
+
+The library makes it possible to construct symbolic Python expressions (as instances of the |symbol|_ class) that can be evaluated at a later time. A symbolic expression involving addition of integers is created in the example below::
 
     >>> from symbolism import *
     >>> addition = symbol(lambda x, y: x + y)
@@ -50,13 +54,13 @@ The expression above can be evaluated at a later time::
     >>> summation.evaluate()
     3
 
-Symbol instances are compatible with all built-in infix and prefix operators. When an operator is applied to one or more ``symbol`` instances, a new ``symbol`` instance is created::
+Instances of |symbol|_ are compatible with `common built-in infix and prefix arithmetic, logical, and relational operators <https://docs.python.org/3/reference/datamodel.html#emulating-numeric-types>`__. When an operator is applied to one or more |symbol|_ instances, a new |symbol|_ instance is created::
 
     >>> summation = symbol(1) + symbol(2)
     >>> summation.evaluate()
     3
 
-Pre-defined constants are also provided for all built-in operators::
+Pre-defined constants are also provided for all built-in operators supported by the |symbol|_ class::
 
     >>> conjunction = and_(symbol(True), symbol(False))
     >>> conjunction.evaluate()
