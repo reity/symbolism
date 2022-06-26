@@ -24,7 +24,7 @@ Extensible combinator library for building symbolic Python expressions that are 
 
 Purpose
 -------
-In many scenarios that require some form of lazy evaluation, it is sufficient to employ lambda expressions, generators/iterables, or abstract syntax trees (via the `ast <https://docs.python.org/3/library/ast.html>`__ and/or `inspect <https://docs.python.org/3/library/inspect.html>`__ modules). However, there are certain cases where none of these are an option (for example, employing lambda expressions precludes serialization and employing the `ast <https://docs.python.org/3/library/ast.html>`__ or `inspect <https://docs.python.org/3/library/inspect.html>`__ modules usually involves introducing boilerplate that expands the solution beyond one line of code). The purpose of this library is to fill those gaps and make it possible to write concise symbolic expressions that are embedded directly in the concrete syntax of the language.
+In many scenarios that require some form of lazy evaluation, it is sufficient to employ lambda expressions, generators/iterables, or abstract syntax trees (via the `ast <https://docs.python.org/3/library/ast.html>`__ and/or `inspect <https://docs.python.org/3/library/inspect.html>`__ modules). However, there are certain cases where none of these are an option (for example, employing lambda expressions precludes serialization and employing the `ast <https://docs.python.org/3/library/ast.html>`__ or `inspect <https://docs.python.org/3/library/inspect.html>`__ modules usually involves introducing boilerplate that expands the solution beyond one line of code). The purpose of this library is to fill those gaps and make it possible to write concise symbolic expressions that are embedded directly within the concrete syntax of the language.
 
 Installation and Usage
 ----------------------
@@ -41,7 +41,7 @@ Examples
 ^^^^^^^^
 
 .. |symbol| replace:: ``symbol``
-.. _symbol: https://symbolism.readthedocs.io/en/latest/_source/symbolism.html#symbolism.symbolism.symbol
+.. _symbol: https://symbolism.readthedocs.io/en/0.4.0/_source/symbolism.html#symbolism.symbolism.symbol
 
 The library makes it possible to construct symbolic Python expressions (as instances of the |symbol|_ class) that can be evaluated at a later time. A symbolic expression involving addition of integers is created in the example below::
 
@@ -91,7 +91,7 @@ Alternatively, all unit tests are included in the module itself and can be execu
 
     python src/symbolism/symbolism.py -v
 
-Style conventions are enforced using `Pylint <https://www.pylint.org>`__::
+Style conventions are enforced using `Pylint <https://pylint.pycqa.org>`__::
 
     python -m pip install .[lint]
     python -m pylint src/symbolism
@@ -110,11 +110,16 @@ This library can be published as a `package on PyPI <https://pypi.org/project/sy
 
     python -m pip install .[publish]
 
-Remove any old build/distribution files and package the source into a distribution archive::
+Ensure that the correct version number appears in ``pyproject.toml``, and that any links in this README document to the Read the Docs documentation of this package (or its dependencies) have appropriate version numbers. Also ensure that the Read the Docs project for this library has an `automation rule <https://docs.readthedocs.io/en/stable/automation-rules.html>`__ that activates and sets as the default all tagged versions. Create and push a tag for this version (replacing ``?.?.?`` with the version number)::
+
+    git tag ?.?.?
+    git push origin ?.?.?
+
+Remove any old build/distribution files. Then, package the source into a distribution archive::
 
     rm -rf build dist src/*.egg-info
     python -m build --sdist --wheel .
 
-Finally, upload the package distribution archive to `PyPI <https://pypi.org>`__ using the `twine <https://pypi.org/project/twine>`__ package::
+Finally, upload the package distribution archive to `PyPI <https://pypi.org>`__::
 
     python -m twine upload dist/*

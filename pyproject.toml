@@ -3,7 +3,7 @@ name = "symbolism"
 version = "0.4.0"
 description = """\
     Extensible combinator library for building symbolic expressions that can \
-	be evaluated at a later time.\
+    be evaluated at a later time.\
     """
 license = {file = "LICENSE"}
 authors = [
