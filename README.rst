@@ -24,11 +24,11 @@ Extensible combinator library for building symbolic Python expressions that are 
 
 Purpose
 -------
-In many scenarios that require some form of lazy evaluation, it is sufficient to employ lambda expressions, generators/iterables, or abstract syntax trees (via the `ast <https://docs.python.org/3/library/ast.html>`_ and/or `inspect <https://docs.python.org/3/library/inspect.html>`_ modules). However, there are certain cases where none of these are an option (for example, employing lambda expressions precludes serialization and employing the `ast <https://docs.python.org/3/library/ast.html>`_ or `inspect <https://docs.python.org/3/library/inspect.html>`_ modules usually involves introducing boilerplate that expands the solution beyond one line of code). The purpose of this library is to fill those gaps and make it possible to write concise symbolic expressions that are embedded directly in the concrete syntax of the language.
+In many scenarios that require some form of lazy evaluation, it is sufficient to employ lambda expressions, generators/iterables, or abstract syntax trees (via the `ast <https://docs.python.org/3/library/ast.html>`__ and/or `inspect <https://docs.python.org/3/library/inspect.html>`__ modules). However, there are certain cases where none of these are an option (for example, employing lambda expressions precludes serialization and employing the `ast <https://docs.python.org/3/library/ast.html>`__ or `inspect <https://docs.python.org/3/library/inspect.html>`__ modules usually involves introducing boilerplate that expands the solution beyond one line of code). The purpose of this library is to fill those gaps and make it possible to write concise symbolic expressions that are embedded directly in the concrete syntax of the language.
 
-Package Installation and Usage
-------------------------------
-The package is available on `PyPI <https://pypi.org/project/symbolism/>`_::
+Installation and Usage
+----------------------
+This library is available as a `package on PyPI <https://pypi.org/project/symbolism>`__::
 
     python -m pip install symbolism
 
@@ -62,49 +62,55 @@ Pre-defined constants are also provided for all built-in operators::
     >>> conjunction.evaluate()
     False
 
+Development
+-----------
+All installation and development dependencies are fully specified in ``pyproject.toml``. The ``project.optional-dependencies`` object is used to `specify optional requirements <https://peps.python.org/pep-0621>`__ for various development tasks. This makes it possible to specify additional options (such as ``docs``, ``lint``, and so on) when performing installation using `pip <https://pypi.org/project/pip>`__::
+
+    python -m pip install .[docs,lint]
+
 Documentation
--------------
-.. include:: toc.rst
+^^^^^^^^^^^^^
+The documentation can be generated automatically from the source files using `Sphinx <https://www.sphinx-doc.org>`__::
 
-The documentation can be generated automatically from the source files using `Sphinx <https://www.sphinx-doc.org/>`_::
-
+    python -m pip install .[docs]
     cd docs
-    python -m pip install -r requirements.txt
-    sphinx-apidoc -f -E --templatedir=_templates -o _source .. ../setup.py && make html
+    sphinx-apidoc -f -E --templatedir=_templates -o _source .. && make html
 
 Testing and Conventions
------------------------
-All unit tests are executed and their coverage is measured when using `pytest <https://docs.pytest.org/>`_ (see ``setup.cfg`` for configuration details)::
+^^^^^^^^^^^^^^^^^^^^^^^
+All unit tests are executed and their coverage is measured when using `pytest <https://docs.pytest.org>`__ (see the ``pyproject.toml`` file for configuration details)::
 
-    python -m pip install pytest pytest-cov
+    python -m pip install .[test]
     python -m pytest
 
-Alternatively, all unit tests are included in the module itself and can be executed using `doctest <https://docs.python.org/3/library/doctest.html>`_::
+Alternatively, all unit tests are included in the module itself and can be executed using `doctest <https://docs.python.org/3/library/doctest.html>`__::
 
     python symbolism/symbolism.py -v
 
-Style conventions are enforced using `Pylint <https://www.pylint.org/>`_::
+Style conventions are enforced using `Pylint <https://www.pylint.org>`__::
 
-    python -m pip install pylint
+    python -m pip install .[lint]
     python -m pylint symbolism
 
 Contributions
--------------
-In order to contribute to the source code, open an issue or submit a pull request on the `GitHub page <https://github.com/reity/symbolism>`_ for this library.
+^^^^^^^^^^^^^
+In order to contribute to the source code, open an issue or submit a pull request on the `GitHub page <https://github.com/reity/symbolism>`__ for this library.
 
 Versioning
-----------
-The version number format for this library and the changes to the library associated with version number increments conform with `Semantic Versioning 2.0.0 <https://semver.org/#semantic-versioning-200>`_.
+^^^^^^^^^^
+The version number format for this library and the changes to the library associated with version number increments conform with `Semantic Versioning 2.0.0 <https://semver.org/#semantic-versioning-200>`__.
 
 Publishing
-----------
-This library can be published as a `package on PyPI <https://pypi.org/project/symbolism/>`_ by a package maintainer. Install the `wheel <https://pypi.org/project/wheel/>`_ package, remove any old build/distribution files, and package the source into a distribution archive::
+^^^^^^^^^^
+This library can be published as a `package on PyPI <https://pypi.org/project/symbolism>`__ by a package maintainer. First, install the dependencies required for packaging and publishing::
 
-    python -m pip install wheel
-    rm -rf dist *.egg-info
-    python setup.py sdist bdist_wheel
+    python -m pip install .[publish]
 
-Next, install the `twine <https://pypi.org/project/twine/>`_ package and upload the package distribution archive to PyPI::
+Remove any old build/distribution files and package the source into a distribution archive::
 
-    python -m pip install twine
+    rm -rf build dist *.egg-info
+    python -m build --sdist --wheel .
+
+Finally, upload the package distribution archive to `PyPI <https://pypi.org>`__ using the `twine <https://pypi.org/project/twine>`__ package::
+
     python -m twine upload dist/*
