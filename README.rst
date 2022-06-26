@@ -18,8 +18,8 @@ Extensible combinator library for building symbolic Python expressions that are 
    :target: https://github.com/reity/symbolism/actions/workflows/lint-test-cover-docs.yml
    :alt: GitHub Actions status.
 
-.. |coveralls| image:: https://coveralls.io/repos/github/reity/symbolism/badge.svg?branch=master
-   :target: https://coveralls.io/github/reity/symbolism?branch=master
+.. |coveralls| image:: https://coveralls.io/repos/github/reity/symbolism/badge.svg?branch=main
+   :target: https://coveralls.io/github/reity/symbolism?branch=main
    :alt: Coveralls test coverage summary.
 
 Purpose
