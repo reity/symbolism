@@ -428,7 +428,14 @@ def _and_(x: symbol, y: symbol) -> symbol:
     False
     """
     return x and y
+
 and_ = symbol(_and_)
+"""
+.. |and| replace:: ``and``
+.. _and: https://docs.python.org/3/reference/expressions.html#boolean-operations
+
+Symbolic function corresponding to the infix boolean operator |and|_.
+"""
 
 def _or_(x: symbol, y: symbol) -> symbol:
     """
@@ -438,7 +445,65 @@ def _or_(x: symbol, y: symbol) -> symbol:
     True
     """
     return x or y
+
 or_ = symbol(_or_)
+"""
+.. |or| replace:: ``or``
+.. _or: https://docs.python.org/3/reference/expressions.html#boolean-operations
+
+Symbolic function corresponding to the infix boolean operator |or|_.
+"""
+
+def _not_(x: symbol) -> symbol:
+    """
+    >>> isinstance(not_(symbol(True)), symbol)
+    True
+    >>> not_.instance(True)
+    False
+    """
+    return not x
+
+not_ = symbol(_not_)
+"""
+.. |not| replace:: ``not``
+.. _not: https://docs.python.org/3/reference/expressions.html#boolean-operations
+
+Symbolic function corresponding to the prefix boolean operator |not|_.
+"""
+
+def _in_(x: symbol, y: symbol) -> symbol:
+    """
+    >>> isinstance(in_(symbol(2), symbol({1, 2, 3})), symbol)
+    True
+    >>> in_.instance(2, {1, 2, 3})
+    True
+    """
+    return x in y
+
+in_ = symbol(_in_)
+"""
+.. |in| replace:: ``in``
+.. _in: https://docs.python.org/3/reference/expressions.html#comparisons
+
+Symbolic function corresponding to the infix operator |in|_.
+"""
+
+def _is_(x: symbol, y: symbol) -> symbol:
+    """
+    >>> isinstance(is_(symbol(2), symbol(2)), symbol)
+    True
+    >>> is_.instance(2, 2)
+    True
+    """
+    return x is y
+
+is_ = symbol(_is_)
+"""
+.. |is| replace:: ``is``
+.. _is: https://docs.python.org/3/reference/expressions.html#comparisons
+
+Symbolic function corresponding to the infix operator |is|_.
+"""
 
 def _add_(x: symbol, y: symbol) -> symbol:
     """
@@ -448,7 +513,9 @@ def _add_(x: symbol, y: symbol) -> symbol:
     5
     """
     return x + y
+
 add_ = symbol(_add_)
+"""Alias for :obj:`symbol.__add__`."""
 
 def _sub_(x: symbol, y: symbol) -> symbol:
     """
@@ -458,7 +525,9 @@ def _sub_(x: symbol, y: symbol) -> symbol:
     -1
     """
     return x - y
+
 sub_ = symbol(_sub_)
+"""Alias for :obj:`symbol.__sub__`."""
 
 def _mul_(x: symbol, y: symbol) -> symbol:
     """
@@ -468,7 +537,9 @@ def _mul_(x: symbol, y: symbol) -> symbol:
     6
     """
     return x * y
+
 mul_ = symbol(_mul_)
+"""Alias for :obj:`symbol.__mul__`."""
 
 def _matmul_(x: symbol, y: symbol) -> symbol:
     """
@@ -481,7 +552,9 @@ def _matmul_(x: symbol, y: symbol) -> symbol:
     True
     """
     return x @ y
+
 matmul_ = symbol(_matmul_)
+"""Alias for :obj:`symbol.__matmul__`."""
 
 def _div_(x: symbol, y: symbol) -> symbol:
     """
@@ -491,8 +564,12 @@ def _div_(x: symbol, y: symbol) -> symbol:
     2.5
     """
     return x / y
-div_ = symbol(_div_)
-truediv_ = div_ # Synonym based on method names in Python data model.
+
+truediv_ = symbol(_div_)
+"""Alias for :obj:`symbol.__truediv__`."""
+
+div_ = truediv_
+"""Concise alias for :obj:`symbol.__truediv__`."""
 
 def _floordiv_(x: symbol, y: symbol) -> symbol:
     """
@@ -502,7 +579,9 @@ def _floordiv_(x: symbol, y: symbol) -> symbol:
     2
     """
     return x // y
+
 floordiv_ = symbol(_floordiv_)
+"""Alias for :obj:`symbol.__floordiv__`."""
 
 def _mod_(x: symbol, y: symbol) -> symbol:
     """
@@ -512,7 +591,9 @@ def _mod_(x: symbol, y: symbol) -> symbol:
     1
     """
     return x % y
+
 mod_ = symbol(_mod_)
+"""Alias for :obj:`symbol.__mod__`."""
 
 def _pow_(x: symbol, y: symbol) -> symbol:
     """
@@ -522,7 +603,9 @@ def _pow_(x: symbol, y: symbol) -> symbol:
     8
     """
     return x ** y
+
 pow_ = symbol(_pow_)
+"""Alias for :obj:`symbol.__pow__`."""
 
 def _lshift_(x: symbol, y: symbol) -> symbol:
     """
@@ -532,7 +615,9 @@ def _lshift_(x: symbol, y: symbol) -> symbol:
     16
     """
     return x << y
+
 lshift_ = symbol(_lshift_)
+"""Alias for :obj:`symbol.__lshift__`."""
 
 def _rshift_(x: symbol, y: symbol) -> symbol:
     """
@@ -542,7 +627,9 @@ def _rshift_(x: symbol, y: symbol) -> symbol:
     4
     """
     return x >> y
+
 rshift_ = symbol(_rshift_)
+"""Alias for :obj:`symbol.__rshift__`."""
 
 def _bitand_(x: symbol, y: symbol) -> symbol:
     """
@@ -552,8 +639,12 @@ def _bitand_(x: symbol, y: symbol) -> symbol:
     {2}
     """
     return x & y
+
 bitand_ = symbol(_bitand_)
-amp_ = bitand_ # Concise synonym.
+"""Alias for :obj:`symbol.__and__`."""
+
+amp_ = bitand_
+"""Concise alias for :obj:`symbol.__and__`."""
 
 def _bitxor_(x: symbol, y: symbol) -> symbol:
     """
@@ -563,8 +654,12 @@ def _bitxor_(x: symbol, y: symbol) -> symbol:
     {1, 3}
     """
     return x ^ y
+
 bitxor_ = symbol(_bitxor_)
+"""Alias for :obj:`symbol.__xor__`."""
+
 xor_ = bitxor_ # Concise synonym
+"""Concise alias for :obj:`symbol.__xor__`."""
 
 def _bitor_(x: symbol, y: symbol) -> symbol:
     """
@@ -574,8 +669,12 @@ def _bitor_(x: symbol, y: symbol) -> symbol:
     {1, 2, 3}
     """
     return x | y
+
 bitor_ = symbol(_bitor_)
-bar_ = bitor_ # Concise synonym.
+"""Alias for :obj:`symbol.__or__`."""
+
+bar_ = bitor_
+"""Concise alias for :obj:`symbol.__or__`."""
 
 def _invert_(x: symbol) -> symbol:
     """
@@ -585,17 +684,9 @@ def _invert_(x: symbol) -> symbol:
     -3
     """
     return ~x
-invert_ = symbol(_invert_)
 
-def _not_(x: symbol) -> symbol:
-    """
-    >>> isinstance(not_(symbol(True)), symbol)
-    True
-    >>> not_.instance(True)
-    False
-    """
-    return not x
-not_ = symbol(_not_)
+invert_ = symbol(_invert_)
+"""Alias for :obj:`symbol.__invert__`."""
 
 def _pos_(x: symbol) -> symbol:
     """
@@ -605,8 +696,12 @@ def _pos_(x: symbol) -> symbol:
     3
     """
     return +x
+
 pos_ = symbol(_pos_)
-uadd_ = pos_ # Synonym based on AST module names.
+"""Alias for :obj:`symbol.__pos__`."""
+
+uadd_ = pos_
+"""Alias for :obj:`symbol.__pos__` (alluding to the name of :obj:`ast.UAdd`)."""
 
 def _neg_(x: symbol) -> symbol:
     """
@@ -616,8 +711,12 @@ def _neg_(x: symbol) -> symbol:
     -3
     """
     return -x
+
 neg_ = symbol(_neg_)
-usub_ = neg_ # Synonym based on AST module names.
+"""Alias for :obj:`symbol.__neg__`."""
+
+usub_ = neg_
+"""Alias for :obj:`symbol.__neg__` (alluding to the name of :obj:`ast.USub`)."""
 
 def _eq_(x: symbol, y: symbol) -> symbol:
     """
@@ -627,7 +726,9 @@ def _eq_(x: symbol, y: symbol) -> symbol:
     False
     """
     return x == y
+
 eq_ = symbol(_eq_)
+"""Alias for :obj:`symbol.__eq__`."""
 
 def _ne_(x: symbol, y: symbol) -> symbol:
     """
@@ -637,7 +738,9 @@ def _ne_(x: symbol, y: symbol) -> symbol:
     True
     """
     return x != y
+
 ne_ = symbol(_ne_)
+"""Alias for :obj:`symbol.__ne__`."""
 
 def _lt_(x: symbol, y: symbol) -> symbol:
     """
@@ -647,7 +750,9 @@ def _lt_(x: symbol, y: symbol) -> symbol:
     False
     """
     return x < y
+
 lt_ = symbol(_lt_)
+"""Alias for :obj:`symbol.__lt__`."""
 
 def _le_(x: symbol, y: symbol) -> symbol:
     """
@@ -657,7 +762,9 @@ def _le_(x: symbol, y: symbol) -> symbol:
     False
     """
     return x <= y
+
 le_ = symbol(_le_)
+"""Alias for :obj:`symbol.__le__`."""
 
 def _gt_(x: symbol, y: symbol) -> symbol:
     """
@@ -667,7 +774,9 @@ def _gt_(x: symbol, y: symbol) -> symbol:
     True
     """
     return x > y
+
 gt_ = symbol(_gt_)
+"""Alias for :obj:`symbol.__gt__`."""
 
 def _ge_(x: symbol, y: symbol) -> symbol:
     """
@@ -677,27 +786,9 @@ def _ge_(x: symbol, y: symbol) -> symbol:
     True
     """
     return x >= y
+
 ge_ = symbol(_ge_)
-
-def _in_(x: symbol, y: symbol) -> symbol:
-    """
-    >>> isinstance(in_(symbol(2), symbol({1, 2, 3})), symbol)
-    True
-    >>> in_.instance(2, {1, 2, 3})
-    True
-    """
-    return x in y
-in_ = symbol(_in_)
-
-def _is_(x: symbol, y: symbol) -> symbol:
-    """
-    >>> isinstance(is_(symbol(2), symbol(2)), symbol)
-    True
-    >>> is_.instance(2, 2)
-    True
-    """
-    return x is y
-is_ = symbol(_is_)
+"""Alias for :obj:`symbol.__ge__`."""
 
 if __name__ == '__main__':
     doctest.testmod() # pragma: no cover
