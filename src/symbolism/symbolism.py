@@ -30,7 +30,7 @@ class symbol:
     >>> summation.evaluate()
     3
 
-    Pre-defined constants are also provided for all built-in operators.
+    Pre-defined constants are also provided for all built-in Python operators.
 
     >>> conjunction = and_(symbol(True), symbol(False))
     >>> conjunction.evaluate()
@@ -65,7 +65,7 @@ class symbol:
         1
 
         Keyword arguments are also supported. However, note that the keywords
-        are preserved only in the keys of the``parameters`` attribute (which in
+        are preserved only in the keys of the ``parameters`` attribute (which in
         this case is instantiated as a dictionary). The indexing method
         :obj:`~symbol.__getitem__` and the iteration method :obj:`~symbol.__iter__`
         only support positional integer indexing and (where applicable) slicing.
@@ -117,10 +117,9 @@ class symbol:
         >>> [s.instance for s in e[0:2]]
         [1, 2]
         """
-        # pylint: disable=no-member # Disable false positive in below expression.
         return (
-            list(self.parameters.values())[key] \
-            if isinstance(self.parameters, dict) else \
+            list(self.parameters.values())[key] # pylint: disable=no-member
+            if isinstance(self.parameters, dict) else
             self.parameters[key] # Should be a :obj:`tuple`; see :obj:`__init__`.
         )
 
@@ -148,18 +147,17 @@ class symbol:
         >>> 123 in add_(123)
         True
         """
-        # pylint: disable=no-member # Disable false positive in below statement.
         for parameter in (
-            self.parameters.values() \
-            if isinstance(self.parameters, dict) else \
+            self.parameters.values() # pylint: disable=no-member
+            if isinstance(self.parameters, dict) else
             self.parameters
         ):
             yield parameter
 
     def __len__(self: symbol) -> int:
         """
-        The length of an instance corresponds to the number of parameters it
-        has.
+        The length of an instance corresponds to the number of parameters that
+        it has.
 
         >>> add = lambda x, y: x + y
         >>> len(symbol(add))
@@ -186,12 +184,11 @@ class symbol:
         if self.parameters is None:
             return self.instance
 
-        # pylint: disable=no-member # Disable false positive in below expression.
         return self.instance(*[
             parameter.evaluate()
-            for parameter in ( # pylint: disable=no-member
-                self.parameters.values() \
-                if isinstance(self.parameters, dict) else \
+            for parameter in (
+                self.parameters.values() # pylint: disable=no-member
+                if isinstance(self.parameters, dict) else
                 self.parameters
             )
         ])
@@ -420,9 +417,8 @@ class symbol:
         """
         return ge_(self, other)
 
-# In order to accommodate the limitations of measuring
-# coverage of unit tests, the @symbol decorator is not
-# used in the definitions below.
+# In order to accommodate the limitations of measuring coverage of unit tests,
+# the @symbol decorator is not used in the definitions below.
 
 def _and_(x: symbol, y: symbol) -> symbol:
     """
@@ -703,5 +699,5 @@ def _is_(x: symbol, y: symbol) -> symbol:
     return x is y
 is_ = symbol(_is_)
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     doctest.testmod() # pragma: no cover
